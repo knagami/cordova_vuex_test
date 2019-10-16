@@ -2,6 +2,7 @@
   <div class="hello">
     <h1>{{ message }}</h1>
     <el-upload
+      ref="upload"
       class="upload-demo"
       action
       :on-change="handleAdd"
@@ -10,16 +11,30 @@
       list-type="picture"
       :auto-upload="false"
     >
-      <el-button size="mini" type="primary">Click to upload</el-button>
-      <div slot="tip" class="el-upload__tip">jpg/png files with a size less than 500kb</div>
+      <el-button size="mini" type="primary">ADD</el-button>
     </el-upload>
-
-    <el-tabs v-model="activeName" @tab-click="handleClick">
-      <el-tab-pane label="User" name="first">User</el-tab-pane>
-      <el-tab-pane label="Config" name="second">Config</el-tab-pane>
-      <el-tab-pane label="Role" name="third">Role</el-tab-pane>
-      <el-tab-pane label="Task" name="fourth">Task</el-tab-pane>
-    </el-tabs>
+    <div v-if="upload">
+      <br />
+      <el-button size="mini" @click="handleClickCancel">CLOSE</el-button>&nbsp;
+      <el-button size="mini" type="primary" @click="handleClickUpload">UPLOAD</el-button>
+    </div>
+    <el-table
+      v-if="!upload"
+      :data="entries"
+      :default-sort="{prop: 'created_at', order: 'descending'}"
+      style="width: 100%"
+    >
+      <el-table-column sortable label="date" min-width="100">
+        <div slot-scope="{row}">
+          <small>{{ row.created_at.replace( 'T', ' ' ).replace( 'Z', '' ) }}</small>
+        </div>
+      </el-table-column>
+      <el-table-column label="image">
+        <div slot-scope="{row}">
+          <img width="200px" :src="'http://localhost:8000/' + row.filepath" />
+        </div>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -32,28 +47,57 @@ export default {
   },
   data() {
     return {
-      activeName: "first"
+      upload: false,
+      activeName: "first",
+      fileList: []
     };
   },
 
   computed: {
+    entries() {
+      return this.$store.getters.entries;
+    },
     message() {
       return this.$store.getters.message;
-    },
+    }
   },
 
   created() {
     console.log(store.state.count);
     store.commit("increment");
     console.log(store.state.count);
-    this.$store.dispatch("doUpdate", "aaaa");
-    this.$store.dispatch("getEntries", "aaaa");
+    this.$store.dispatch("doUpdate", "upload test");
+    this.$store.dispatch("getEntries");
     console.log(store.state.entries);
   },
 
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);
+    },
+    // リストのバッテンを押下した時
+    handleRemove: function(file, fileList) {
+      console.log("ggg2", fileList);
+      this.fileList = fileList;
+    },
+    // ファイルを追加した時
+    handleAdd: function(file, fileList) {
+      this.upload = true;
+      this.fileList = fileList;
+    },
+    handleClickUpload: async function() {
+      for (var i = 0; i < this.fileList.length; i++) {
+        await this.$store.dispatch("upload", this.fileList[i]);
+      }
+      this.upload = false;
+      this.$refs.upload.clearFiles();
+      this.fileList = null;
+      this.$store.dispatch("getEntries");
+    },
+    handleClickCancel: function() {
+      this.upload = false;
+      this.$refs.upload.clearFiles();
+      this.fileList = null;
     }
   }
 };

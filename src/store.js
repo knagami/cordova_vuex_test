@@ -10,11 +10,13 @@ export default new Vuex.Store({
     entries: null,
     message: '初期メッセージ'
   },
-  
+
   getters: {
-    // messageを使用するゲッター
     message(state) {
       return state.message
+    },
+    entries(state) {
+      return state.entries
     }
   },
 
@@ -41,16 +43,41 @@ export default new Vuex.Store({
       })
     },
 
+    async upload({
+      commit
+    }, file) {
+      const formData = new FormData()
+      var now = new Date();
+      var Year = now.getFullYear();
+      var Month = now.getMonth()+1;
+      var Date1 = now.getDate();
+      var Hour = now.getHours();
+      var Min = now.getMinutes();
+      var Sec = now.getSeconds();
+
+      var yd = Year + "-" + Month + "-" + Date1 + " " + Hour + ":" + Min + ":" + Sec;
+      formData.append('created_at', yd)
+      formData.append('updated_at', yd)
+      formData.append('file', file.raw, file.name)
+      await axios
+        .post("http://localhost:8000/api/images/", formData,{
+          timeout: 0
+        })
+        .then(res => {
+          console.log("gggg",res)
+        });
+    },
+
     async getEntries(context) {
       const payload = {
         address: "",
-        zip: context.state.zip
       };
       await axios
-        .get("http://localhost:8000/api/entries/?", {
-          params: { zipcode: payload.zip }
+        .get("http://localhost:8000/api/images/?", {
+          params: { zipcode: payload.address }
         })
         .then(res => {
+          console.log("sss",res.data.results)
           payload.entries = res.data.results;
           context.commit("setEntries", payload);
         });
