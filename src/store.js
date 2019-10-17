@@ -44,8 +44,12 @@ export default new Vuex.Store({
     },
 
     async upload({
-      commit
+       commit
     }, file) {
+      var message = 'OpenCV Test'
+      commit('setMessage', {
+        message
+      })
       const formData = new FormData()
       var now = new Date();
       var Year = now.getFullYear();
@@ -66,6 +70,7 @@ export default new Vuex.Store({
         .then(res => {
           console.log("gggg",res)
         });
+
     },
 
     async getEntries(context) {

@@ -11,7 +11,9 @@
       list-type="picture"
       :auto-upload="false"
     >
-      <el-button size="mini" type="primary">ADD</el-button>
+      <div v-if="!upload">
+        <el-button size="mini" type="primary">ADD Image</el-button>
+      </div>
     </el-upload>
     <div v-if="upload">
       <br />
@@ -24,14 +26,20 @@
       :default-sort="{prop: 'created_at', order: 'descending'}"
       style="width: 100%"
     >
-      <el-table-column sortable label="date" min-width="100">
+      <el-table-column prop="created_at" sortable label="date">
         <div slot-scope="{row}">
           <small>{{ row.created_at.replace( 'T', ' ' ).replace( 'Z', '' ) }}</small>
         </div>
       </el-table-column>
-      <el-table-column label="image">
+      <el-table-column label="Image">
         <div slot-scope="{row}">
           <img width="200px" :src="'http://localhost:8000/' + row.filepath" />
+          <br />
+
+          <img
+            width="200px"
+            :src="'http://localhost:8000/' + row.filepath.replace( 'media/', 'media/ss_' )"
+          />
         </div>
       </el-table-column>
     </el-table>
@@ -66,7 +74,7 @@ export default {
     console.log(store.state.count);
     store.commit("increment");
     console.log(store.state.count);
-    this.$store.dispatch("doUpdate", "upload test");
+    this.$store.dispatch("doUpdate", "OpenCV Test");
     this.$store.dispatch("getEntries");
     console.log(store.state.entries);
   },
