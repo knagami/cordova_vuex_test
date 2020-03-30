@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-
+import Sample1 from './components/Sample1.vue'
+import Sample2 from './components/Sample2.vue'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -12,12 +14,15 @@ export default new Router({
       component: Home
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
+      path: '/sample1',
+      name: 'sample1',
+      component: Sample1
+    },
+    {
+      path: '/sample2',
+      name: 'sample2',
+      component: Sample2
+    },
+
   ]
 })

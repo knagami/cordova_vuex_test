@@ -1,20 +1,12 @@
 <template>
+
   <div id="app">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <router-link to="/"><el-button>home</el-button></router-link>&nbsp;&nbsp;
+  <router-link to="/sample1"><el-button>Uploder</el-button></router-link>&nbsp;&nbsp;
+  <router-link to="/sample2"><el-button>Calendar</el-button></router-link>
+  <router-view/>
+</div>
 </template>
-
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
-</script>
-
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -22,6 +14,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 8px;
 }
 </style>

@@ -60,7 +60,6 @@ export default {
       fileList: []
     };
   },
-
   computed: {
     entries() {
       return this.$store.getters.entries;
@@ -69,7 +68,6 @@ export default {
       return this.$store.getters.message;
     }
   },
-
   created() {
     console.log(store.state.count);
     store.commit("increment");
@@ -78,7 +76,6 @@ export default {
     this.$store.dispatch("getEntries");
     console.log(store.state.entries);
   },
-
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);
