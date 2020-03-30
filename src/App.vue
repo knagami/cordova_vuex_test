@@ -1,6 +1,6 @@
 <template>
 
-  <div id="app">
+  <div id="app">&nbsp;&nbsp;
   <router-link to="/"><el-button>home</el-button></router-link>&nbsp;&nbsp;
   <router-link to="/sample1"><el-button>Uploder</el-button></router-link>&nbsp;&nbsp;
   <router-link to="/sample2"><el-button>Calendar</el-button></router-link>
@@ -12,8 +12,8 @@
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  text-align: left;
   color: #2c3e50;
-  margin-top: 8px;
+  margin-top: 2px;
 }
 </style>

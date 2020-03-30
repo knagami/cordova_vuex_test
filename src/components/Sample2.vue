@@ -61,7 +61,6 @@
               :events="events"
               :event-overlap-mode="mode"
               :event-overlap-threshold="30"
-              :event-color="getEventColor"
               @change="getEvents"
             ></v-calendar>
           </v-sheet>
@@ -80,8 +79,8 @@ import VueGAPI from "vue-gapi";
 
 // create the 'options' object
 const apiConfig = {
-    apiKey: "xxxx",
-    clientId: "yyyy",
+    apiKey: "AIzaSyCdNp0deyRpn5wrxkAkuBVN-wbuCQxE_ko",
+    clientId: "186183757913-49h599553vonqitc24nmdphf3um8uq8j.apps.googleusercontent.com",
     discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
     scope: "https://www.googleapis.com/auth/calendar"
     // see all available scopes here: https://developers.google.com/identity/protocols/googlescopes'
@@ -129,14 +128,15 @@ export default {
                     //calendarId: "ja.japanese#holiday@group.v.calendar.google.com",
                     // 'timeMin': (new Date()).toISOString(),
                     // 'timeMax': (date.toISOString()),
-                    timeMin: (new Date(Date.parse("2020-02-22"))).toISOString(),
-                    timeMax: (new Date(Date.parse("2020-04-27"))).toISOString(),
+                    timeMin: (new Date(Date.parse("2020-01-01"))).toISOString(),
+                    timeMax: (new Date(Date.parse("2020-06-01"))).toISOString(),
                     items: [{ "id": 'primary' }]
                 }).then(function(response) {
                     //vm.results = response.result
                     console.log(response.result.items)
                     var allevents = response.result.items;
                     const formatDate = (a) => {
+                        console.log("aaaa",a)
                         var start =a.dateTime
                         if(a.date){
                             start=a.date
@@ -145,12 +145,14 @@ export default {
                     }
 
                     for (let i = 0; i < allevents.length; i++) {
+                        if(allevents[i].start){
                         events.push({
                             name: allevents[i].summary,
                             start: formatDate(allevents[i].start),
                             end: formatDate(allevents[i].end),
                             color: 'blue',
                         })
+                        }
                     }
                     console.log("bbb",events)
                     const payload = {

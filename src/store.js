@@ -1,19 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import VueGAPI from "vue-gapi";
 
-// create the 'options' object
-const apiConfig = {
-    apiKey: "AIzaSyCdNp0deyRpn5wrxkAkuBVN-wbuCQxE_ko",
-    clientId: "186183757913-49h599553vonqitc24nmdphf3um8uq8j.apps.googleusercontent.com",
-    discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
-    scope: "https://www.googleapis.com/auth/calendar"
-    // see all available scopes here: https://developers.google.com/identity/protocols/googlescopes'
-};
-
-// Use the plugin and pass along the configuration
-Vue.use(Vuex,VueGAPI, apiConfig)
+Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         count: 0,
