@@ -79,8 +79,8 @@ import VueGAPI from "vue-gapi";
 
 // create the 'options' object
 const apiConfig = {
-    apiKey: "AIzaSyCdNp0deyRpn5wrxkAkuBVN-wbuCQxE_ko",
-    clientId: "186183757913-49h599553vonqitc24nmdphf3um8uq8j.apps.googleusercontent.com",
+    apiKey: "xxxx",
+    clientId: "yyyy",
     discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
     scope: "https://www.googleapis.com/auth/calendar"
     // see all available scopes here: https://developers.google.com/identity/protocols/googlescopes'
