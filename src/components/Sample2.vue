@@ -106,15 +106,22 @@ export default {
         // カレンダーデータ取得処理
         getEvents ({ start, end }) {
             const events = []
-            // Googleカレンダー取得
-            this.$getGapiClient().then(gapi => {                
+            
+            // Googleカレンダーに接続
+            this.$getGapiClient().then(gapi => {
+                
+                // Googleカレンダーの検索パラメータセット        
                 gapi.client.calendar.events.list({
                     calendarId: "nagami@key-p.jp",
                     timeMin: (new Date(Date.parse("2020-01-01"))).toISOString(),
                     timeMax: (new Date(Date.parse("2020-06-01"))).toISOString(),
                     items: [{ "id": 'primary' }]
                 }).then(function(response) {
-                    var allevents = response.result.items;
+                    
+                    // レスポンスを変数にセット
+                    var allEvents = response.result.items;
+                    
+                    // 日付変換関数
                     const formatDate = (a) => {
                         var start =a.dateTime
                         if(a.date){
@@ -124,12 +131,12 @@ export default {
                     }
                     
                     // 取得したデータを配列にセット
-                    for (let i = 0; i < allevents.length; i++) {
-                        if(allevents[i].start){
+                    for (let i = 0; i < allEvents.length; i++) {
+                        if(allEvents[i].start){
                         events.push({
-                            name: allevents[i].summary,
-                            start: formatDate(allevents[i].start),
-                            end: formatDate(allevents[i].end),
+                            name: allEvents[i].summary,
+                            start: formatDate(allEvents[i].start),
+                            end: formatDate(allEvents[i].end),
                             color: 'blue',
                         })
                         }
