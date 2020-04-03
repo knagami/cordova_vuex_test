@@ -13,6 +13,7 @@
     "cordova-ios": "^5.1.1",
     "cordova-plugin-camera": "^4.1.0",
     "core-js": "^2.6.5",
+    "dotenv": "^8.2.0",
     "element-ui": "^2.4.5",
     "vue": "^2.6.10",
     "vue-gapi": "^0.1.2",
